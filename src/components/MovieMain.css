@@ -1,0 +1,15 @@
+.card_main {
+    height: 100vh;
+}
+
+.card_main--vertical {
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(to top, #111 10%, transparent 90%);
+}
+
+.card_main--horizontal {
+    width: inherit;
+    height: inherit;
+    background: linear-gradient(to right, #111 30%, transparent 70%);
+}
