@@ -3,11 +3,16 @@ import './App.css';
 import Tmdb from './Tmdb';
 import Lists from './components/Lists';
 import MovieMain from './components/MovieMain';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Loading from './components/Loading';
 
-function App() {
+
+const App = () => {
 
   const [movieList, setMovieList] = useState([])
   const [dataMain, setDataMain] = useState([])
+  const [backHeader, setBlackHeader] = useState(false)
 
   useEffect(() => {
     const loadAll = async () => {
@@ -20,17 +25,36 @@ function App() {
       let chosenInfo = await Tmdb.getMovieInfo(movieChosen.id, 'tv')
       setDataMain(chosenInfo)
       
-      console.log(chosenInfo);
     }
 
     loadAll()
 
   }, [])
 
+  useEffect(() => {
+    const scrollListener = () => {
+      if(window.scrollY > 10) {
+        setBlackHeader(true)
+      } else {
+        setBlackHeader(false)
+      }
+    }
+
+    window.addEventListener('scroll', scrollListener)
+
+    return () => {
+      window.removeEventListener('scroll', scrollListener)
+
+    }
+  },[])
+
   return (
     <div>
+      <Header black={backHeader}/>
      { dataMain && <MovieMain dataMain={dataMain} />}
       <Lists movieList={movieList} />
+      <Footer />
+      {movieList.length <= 0 && <Loading />}
     </div>
 
   );
