@@ -36,7 +36,7 @@
     margin-right: 15px;
 }
 
-.card_average {
+.card_year {
     color: #46cd39;
 }
 
@@ -46,6 +46,7 @@
     color: #999;
     max-width: 40%;
     text-align: justify;
+
 }
 
 .card_buttons {

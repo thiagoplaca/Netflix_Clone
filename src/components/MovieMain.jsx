@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect} from "react";
 import './MovieMain.css'
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+
 
 const MovieMain = ({ dataMain }) => {
 
@@ -11,6 +11,27 @@ const MovieMain = ({ dataMain }) => {
     for(let i in dataMain.genres) {
         genres.push(dataMain.genres[i].name)
     }
+
+    let average = dataMain.vote_average
+
+    let formatAverage = average ? `${average.toFixed(1)}` : '';
+
+    const limitOverview = 150;
+
+    useEffect(() => {
+        // Limitar a descrição do cartão para 150 caracteres
+        const cardDescriptionElements = document.querySelectorAll('.card_description');
+
+        cardDescriptionElements.forEach((element) => {
+            const text = element.innerText;
+
+            if (text.length > limitOverview) {
+                element.innerText = text.substring(0, limitOverview) + '...';
+            }
+        });
+    });
+
+
 
     return (
         <section>
@@ -23,8 +44,8 @@ const MovieMain = ({ dataMain }) => {
                     <div className="card_main--horizontal">
                         <div className="card_name">{dataMain.original_name}</div>
                         <div className="card_infos">
-                            <div className="card_year">{dataMain.vote_average} Pontos.</div>
-                            <div className="card_average">{dataReleased.getFullYear()}</div>
+                            <div className="card_average">{formatAverage} Pontos.</div>
+                            <div className="card_year">{dataReleased.getFullYear()}</div>
                             <div className="card_seasons">{dataMain.number_of_seasons} temporada{dataMain.number_of_seasons !== 1 ? 's' : ''}</div>
                         </div>
                         <div className="card_description">{dataMain.overview}</div>
